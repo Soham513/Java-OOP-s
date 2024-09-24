@@ -1,0 +1,26 @@
+# Use Python 3.8 slim base image
+FROM python:3.8-slim
+
+# Set working directory inside the container
+WORKDIR /app
+
+# Install system dependencies for OpenCV, TensorFlow, etc. using yum (for CentOS)
+RUN yum -y update && yum install -y \
+    gcc \
+    gcc-c++ \
+    make \
+    mesa-libGL \
+    glib2 \
+    libSM \
+    libXext \
+    libXrender \
+    && yum clean all
+
+# Ensure pip is installed and upgrade it
+RUN python -m ensurepip --upgrade && pip install --upgrade pip
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Install Python dependencies from requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
