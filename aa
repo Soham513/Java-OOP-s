@@ -8,6 +8,15 @@ RUN yum -y update && yum install -y \
     libXrender \
     && yum clean all
 
+# Install OpenGL libraries and other system dependencies for OpenCV
+RUN yum -y install \
+    mesa-libGL \
+    mesa-libGLU \
+    libSM \
+    libXext \
+    libXrender \
+    && yum clean all
+
 soham@vbox ~]$ sudo docker run --rm --device=/dev/video0:/dev/video realtime-flower-classifier
 Traceback (most recent call last):
   File "detect_flower_webcam.py", line 1, in <module>
